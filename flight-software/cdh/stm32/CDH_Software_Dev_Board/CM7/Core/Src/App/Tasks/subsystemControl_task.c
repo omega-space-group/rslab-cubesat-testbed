@@ -10,6 +10,7 @@
  */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "fdcan.h"
 
 #include <App/app_config.h>
 #include <App/Services/subscriptions.h>
@@ -46,6 +47,7 @@ static void SubsystemControl_Handler(void *argument){
 	Subscribe("SubsystemControl_Handler",(QueueHandle_t)argument);
 	TaskSync_SetAndWait(SUBC_BIT);
 	Message_t newMsg;
+	CAN_TxPacket CAN1_Tx;
 	while(1){
 		TaskHealth_SetBit(SUBC_BIT);
 		SleepUntil((QueueHandle_t)argument,&newMsg,portMAX_DELAY);
@@ -56,33 +58,45 @@ static void SubsystemControl_Handler(void *argument){
 			eps_cnt++;
 			if(eps_cnt > 3){
 				eps_cnt = 0;
-				printf("SYSTEM COMMAND: ENTER SAFE MODE\r\n");
+				printf("OBC COMMAND: EPS RESET\r\n");
 				fflush(stdout);
 				newMsg.Topic = CHANGE_SYSTEM_STATE;
 				newMsg.Data.mode = SAFE;
 				Publish(newMsg);
+
+				CAN1_Tx.Header.Identifier = 0x005;
+				CAN1_Tx.Header.DataLength = FDCAN_DLC_BYTES_0;
+				FDCAN_Tx(CAN1_Tx);
 			}
 			break;
 		case 0x303:
 			adcs_cnt++;
 			if(adcs_cnt > 3){
 				adcs_cnt = 0;
-				printf("SYSTEM COMMAND: ENTER SAFE MODE\r\n");
+				printf("OBC COMMAND: ADCS RESET\r\n");
 				fflush(stdout);
 				newMsg.Topic = CHANGE_SYSTEM_STATE;
 				newMsg.Data.mode = SAFE;
 				Publish(newMsg);
+
+				CAN1_Tx.Header.Identifier = 0x007;
+				CAN1_Tx.Header.DataLength = FDCAN_DLC_BYTES_0;
+				FDCAN_Tx(CAN1_Tx);
 			}
 			break;
 		case 0x403:
 			pl_cnt++;
 			if(pl_cnt > 3){
 				pl_cnt = 0;
-				printf("SYSTEM COMMAND: ENTER SAFE MODE\r\n");
+				printf("OBC COMMAND: PAYLOAD\r\n");
 				fflush(stdout);
 				newMsg.Topic = CHANGE_SYSTEM_STATE;
 				newMsg.Data.mode = SAFE;
 				Publish(newMsg);
+
+				CAN1_Tx.Header.Identifier = 0x008;
+				CAN1_Tx.Header.DataLength = FDCAN_DLC_BYTES_0;
+				FDCAN_Tx(CAN1_Tx);
 			}
 			break;
 		}

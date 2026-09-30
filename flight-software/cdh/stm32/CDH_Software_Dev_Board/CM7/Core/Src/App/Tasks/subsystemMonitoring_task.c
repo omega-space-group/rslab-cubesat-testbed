@@ -10,9 +10,11 @@
  */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "fdcan.h"
 
 #include <App/app_config.h>
 #include <App/Services/app_events.h>
+#include <App/Services/subscriptions.h>
 #include <App/Tasks/subsystemMonitoring_task.h>
 #include <App/Tasks/can_rx_task.h>
 
@@ -48,7 +50,10 @@ static uint8_t comms_cnt, eps_cnt, pl_cnt, adcs_cnt = 0;
  * @note Heartbeat MSG structure could/should change to include more information.
  * @param argument  Pointer to task's local queue handle
  */
+int problem_flag = 0;
 static void SubsystemMonitor_Handler(void *argument){
+	Message_t newMsg;
+	CAN_TxPacket CAN1_Tx;
 	TaskSync_SetAndWait(SUBM_BIT);
 	while(1){
 		vTaskDelay(2000);
@@ -59,9 +64,10 @@ static void SubsystemMonitor_Handler(void *argument){
 		else{
 			comms_cnt++;
 			if(comms_cnt >= 3){
-				printf("COMMS COMMAND: RESET\r\n");
+				printf("OBC COMMAND: COMMS RESET\r\n");
 				fflush(stdout);
 				comms_cnt = 0;
+				problem_flag = 1;
 			}
 		}
 
@@ -71,9 +77,10 @@ static void SubsystemMonitor_Handler(void *argument){
 		else{
 			eps_cnt++;
 			if(eps_cnt >= 3){
-				printf("EPS COMMAND: RESET\r\n");
+				printf("OBC COMMAND: EPS RESET\r\n");
 				fflush(stdout);
 				eps_cnt = 0;
+				problem_flag = 1;
 			}
 		}
 
@@ -83,9 +90,10 @@ static void SubsystemMonitor_Handler(void *argument){
 		else{
 			adcs_cnt++;
 			if(adcs_cnt >= 3){
-				printf("ADCS COMMAND: RESET\r\n");
+				printf("OBC COMMAND: ADCS RESET\r\n");
 				fflush(stdout);
 				adcs_cnt = 0;
+				problem_flag = 1;
 			}
 		}
 
@@ -95,12 +103,23 @@ static void SubsystemMonitor_Handler(void *argument){
 		else{
 			pl_cnt++;
 			if(pl_cnt >= 3){
-				printf("PAYLOAD COMMAND: RESET\r\n");
+				printf("OBC COMMAND: PAYLOAD RESET\r\n");
 				fflush(stdout);
 				pl_cnt = 0;
+				problem_flag = 1;
 			}
 		}
 
+		if(problem_flag){
+			problem_flag = 0;
+			newMsg.Topic = CHANGE_SYSTEM_STATE;
+			newMsg.Data.mode = SAFE;
+			Publish(newMsg);
+
+			CAN1_Tx.Header.Identifier = 0x008;
+			CAN1_Tx.Header.DataLength = FDCAN_DLC_BYTES_0;
+			FDCAN_Tx(CAN1_Tx);
+		}
 		TaskHealth_SetBit(SUBM_BIT);
 	}
 }

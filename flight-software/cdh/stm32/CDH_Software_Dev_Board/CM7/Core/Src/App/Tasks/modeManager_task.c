@@ -85,13 +85,12 @@ static void ModeManager_Handler(void *argument){
 			}
 			if(NewMode == SAFE){
 				CAN1_Tx.Header.Identifier = 0x002;
-				printf("SYSTEM COMMAND: ENTER SAFE MODE\r\n");
+				printf("OBC COMMAND: SYSTEM ENTER SAFE MODE\r\n");
 				fflush(stdout);
 			}
 			else if(NewMode == NOMINAL) {
 				CAN1_Tx.Header.Identifier = 0x003;
-				CAN1_Tx.Header.Identifier = 0x002;
-				printf("SYSTEM COMMAND: ENTER NOMINAL MODE\r\n");
+				printf("OBC COMMAND: SYSTEM ENTER NOMINAL MODE\r\n");
 				fflush(stdout);
 			}
 
