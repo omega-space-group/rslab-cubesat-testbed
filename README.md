@@ -1,11 +1,11 @@
-# ORION CubeSat Flatsat Testbed
+# RSLab CubeSat Flatsat Testbed
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 CubeSat flatsat testbed for deploying and testing AI algorithms, end-to-end processing pipelines and avionics SW/HW. Supports on-board processing validation and serves as development platform for university student projects and future open-source CubeSat missions.
 
-**Ω-Space Group** | **ORION Lab** | **National Technical University of Athens**
+**Ω-Space Group** | **RSLab** | **National Technical University of Athens**
 
 Open-source
 
@@ -103,7 +103,7 @@ Our testbed implements a **hybrid architecture** that combines proven satellite 
 ## 📁 Repository Structure
 
 ```
-orion-cubesat-testbed/
+rslab-cubesat-testbed/
 ├── flight-software/      # On-board SW (C&DH, EPS, Payload, Comms)
 ├── ground-segment/       # Ground station & mission control
 ├── middleware/           # Payload-internal interfaces
@@ -181,7 +181,7 @@ GPL-3.0 License - see [LICENSE](LICENSE) for details.
 ## 📧 Contact
 
 **Ω-Space Group**  
-**ORION Lab**  
+**RSLab**  
 National Technical University of Athens  
 
 - Simon Vellas: svellas@mail.ntua.gr
