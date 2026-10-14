@@ -1,4 +1,4 @@
-# Contributing to ORION CubeSat Testbed
+# Contributing to RSLab CubeSat Testbed
 
 Thank you for your interest in contributing to the ORION CubeSat Testbed! This document provides guidelines and instructions for contributing to the project.
 
