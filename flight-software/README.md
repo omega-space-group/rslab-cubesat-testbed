@@ -1,6 +1,6 @@
 # Flight Software
 
-This directory contains all on-board software for the ORION CubeSat testbed, organized by subsystem.
+This directory contains all on-board software for the RSLab CubeSat testbed, organized by subsystem.
 
 ## 📁 Structure
 
