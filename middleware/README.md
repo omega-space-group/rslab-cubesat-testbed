@@ -1,3 +1,3 @@
 # Middleware
 
-Communication middleware for the ORION CubeSat testbed.
+Communication middleware for the RSLab CubeSat testbed.
