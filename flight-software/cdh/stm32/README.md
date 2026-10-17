@@ -27,13 +27,13 @@ At the heart of the flight software is a lightweight, message-based **Publish/Su
 
 Comprehensive [documentation](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/index.html) for the CDH subsystem has been generated via Doxygen and deployed to GitHub Pages. Here is the documentation for the core framework and setup:
 
-*   **[Software Bus Architecture](https://omega-space-group.github.io/orion-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d8/ded/software_bus.html)**
+*   **[Software Bus Architecture](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d8/ded/software_bus.html)**
     *   Details the Pub/Sub model, Master Queue vs. Local Queue routing, and message dispatching timelines.
-*   **[API References](https://omega-space-group.github.io/orion-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d1/d35/api_references.html)**
+*   **[API References](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d1/d35/api_references.html)**
     *   Complete API specifications including `Subscribe()`, `Publish()`, `SleepUntil()`, and the Task Health/Sync macros.
-*   **[Task Creation Guide](https://omega-space-group.github.io/orion-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/de/d28/task_creation.html)**
+*   **[Task Creation Guide](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/de/d28/task_creation.html)**
     *   Architectural templates for initializing periodic and non-periodic (event-driven) tasks using FreeRTOS static allocation.
-*   **[Flash and Debugging Guide](https://omega-space-group.github.io/orion-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d4/d87/flash_and_debug.html)**
+*   **[Flash and Debugging Guide](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d4/d87/flash_and_debug.html)**
     *   Configuration steps for compiling, single-click dual-core flashing, and establishing CTI synchronization in STM32CubeIDE. Includes vital workarounds for internal watchdog (IWDG1) auto-generation issues.
 
 ---
@@ -42,8 +42,8 @@ Comprehensive [documentation](https://omega-space-group.github.io/rslab-cubesat-
 
 All developed code has been reviewed and merged into the dev organization repository. Below is a direct mapping of the changes introduced during this period:
 
-*   **Target Repository:** https://omega-space-group.github.io/orion-cubesat-testbed/
-*   **Commit History:** https://github.com/omega-space-group/orion-cubesat-testbed/commits/gsoc?author=adaroufogali
+*   **Target Repository:** https://omega-space-group.github.io/rslab-cubesat-testbed/
+*   **Commit History:** https://github.com/omega-space-group/rslab-cubesat-testbed/commits/gsoc?author=adaroufogali
 
 ---
 
@@ -78,7 +78,7 @@ The following core tasks have been fully implemented and can be used directly. *
 Services are centralized utility functions that tasks share to perform specific operations efficiently:
 
 *   **`app_events.c`**: Implements all application-level events necessary for event triggering and task synchronization.
-*   **`subscriptions.c`**: Implements the core Publisher/Subscriber message routing logic. *For a comprehensive breakdown of how this routing system works, please refer to our [API References](https://omega-space-group.github.io/orion-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d1/d35/api_references.html).*
+*   **`subscriptions.c`**: Implements the core Publisher/Subscriber message routing logic. *For a comprehensive breakdown of how this routing system works, please refer to our [API References](https://omega-space-group.github.io/rslab-cubesat-testbed/flight-software/cdh/stm32/CDH_Software_Dev_Board/doc/html/d1/d35/api_references.html).*
 
 ---
 
